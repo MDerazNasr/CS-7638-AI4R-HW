@@ -33,15 +33,17 @@ import checkutil
 # If this local ID doesn't match the ID on Gradescope then you uploaded a different file.
 OUTPUT_UNIQUE_FILE_ID = False
 if OUTPUT_UNIQUE_FILE_ID:
-    import hashlib, pathlib
+    import hashlib
+    import pathlib
+
     file_hash = hashlib.md5(pathlib.Path(__file__).read_bytes()).hexdigest()
-    print(f'Unique file ID: {file_hash}')
+    print(f"Unique file ID: {file_hash}")
 
 # STUDENT ID
+whoami = "mnasr34"
 
 # Please specify your GT login ID in the whoami variable (ex: jsmith126).
 
-whoami = ''
 
 # QUESTION 1: PROBABILITY
 
@@ -65,7 +67,7 @@ q1a_P_not_X = 0.0
 #
 # What is P(X,Y)?
 
-q1b_P_X_and_Y = 0.0
+q1b_P_X_and_Y = 0.04
 
 # Question 1, part C
 
@@ -77,7 +79,7 @@ q1b_P_X_and_Y = 0.0
 #
 # What is P(Y)?
 
-q1c_P_Y = 0.0
+q1c_P_Y = 0.6
 
 # QUESTION 2: LOCALIZATION
 
@@ -98,12 +100,9 @@ q1c_P_Y = 0.0
 # When we use a histogram filter, how does the memory required scale
 # in the number of state variables?
 
-possible_answers = ('linearly',
-                    'quadratically',
-                    'exponentially',
-                    'none of the above')
+possible_answers = ("linearly", "quadratically", "exponentially", "none of the above")
 
-q2_answer = ''
+q2_answer = "exponentially"
 
 # QUESTION 3: BAYES' RULE
 
@@ -152,7 +151,7 @@ q3_P_L = 0.1
 # This means the 5th decimal place may influence the result of
 # the rounding of the 4th decimal place.
 
-q3_nonnormalized_P_F_given_B     = 0.0
+q3_nonnormalized_P_F_given_B = 0.0
 q3_nonnormalized_P_not_F_given_B = 0.0
 
 # Next, normalize this distribution such that they form a valid
@@ -162,8 +161,8 @@ q3_nonnormalized_P_not_F_given_B = 0.0
 #   P(F|B)
 #   P(~F|B)
 
-q3_normalized_P_F_given_B        = 0.0
-q3_normalized_P_not_F_given_B    = 0.0
+q3_normalized_P_F_given_B = 0.0089
+q3_normalized_P_not_F_given_B = 0.9911
 
 # QUESTION 4: LOCALIZATION PROGRAM
 
@@ -212,6 +211,7 @@ q3_normalized_P_not_F_given_B    = 0.0
 #  [1,0] - down
 #  [-1,0] - up
 
+
 def q4_localize(colors, measurements, motions, sensor_right, p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
@@ -221,6 +221,7 @@ def q4_localize(colors, measurements, motions, sensor_right, p_move):
 
     return p
 
+
 ######################################################################
 # Grading methods
 #
@@ -228,59 +229,83 @@ def q4_localize(colors, measurements, motions, sensor_right, p_move):
 #
 ######################################################################
 
-FILL_IN_TEST_CASES = ( { 'variable_name': 'q1a_P_not_X',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       'cb3bf9cff573cf1023a496db48717873',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q1b_P_X_and_Y',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       '1721e6da223a39cbdefc6d2a4ac890b5',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q1c_P_Y',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       '90cdc825a24c9cbc7c9ad85cf6f44eff',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q2_answer',
-                         'str_func':          checkutil.do_nothing,
-                         'answer_hash':       '35fc100831aa382370331af3161bb254',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q3_nonnormalized_P_not_F_given_B',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       'b0ad2428ec143c68e1c1fc0af6e2de7b',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q3_nonnormalized_P_F_given_B',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       'fd0f9bcd8d7dcf5e24702a74d9faad42',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q3_normalized_P_not_F_given_B',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       'fb07b096e5183434a9409d65857ce150',
-                         'points_avail':      1 },
-                       { 'variable_name': 'q3_normalized_P_F_given_B',
-                         'str_func':          checkutil.float_to_str,
-                         'answer_hash':       '3de6c77b2f949cacb49aa53d9938f179',
-                         'points_avail':      1 } )
+FILL_IN_TEST_CASES = (
+    {
+        "variable_name": "q1a_P_not_X",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "cb3bf9cff573cf1023a496db48717873",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q1b_P_X_and_Y",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "1721e6da223a39cbdefc6d2a4ac890b5",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q1c_P_Y",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "90cdc825a24c9cbc7c9ad85cf6f44eff",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q2_answer",
+        "str_func": checkutil.do_nothing,
+        "answer_hash": "35fc100831aa382370331af3161bb254",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q3_nonnormalized_P_not_F_given_B",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "b0ad2428ec143c68e1c1fc0af6e2de7b",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q3_nonnormalized_P_F_given_B",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "fd0f9bcd8d7dcf5e24702a74d9faad42",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q3_normalized_P_not_F_given_B",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "fb07b096e5183434a9409d65857ce150",
+        "points_avail": 1,
+    },
+    {
+        "variable_name": "q3_normalized_P_F_given_B",
+        "str_func": checkutil.float_to_str,
+        "answer_hash": "3de6c77b2f949cacb49aa53d9938f179",
+        "points_avail": 1,
+    },
+)
 
-CODE_TEST_CASES = ( { 'function_name': 'q4_localize',
-                      'function_input': dict( colors = [['R','G','G','R','R'],
-                                                        ['R','R','G','R','R'],
-                                                        ['R','R','G','G','R'],
-                                                        ['R','R','R','R','R']],
-                                              measurements = ['G','G','G','G','G'],
-                                              motions = [[0,0],
-                                                         [0,1],
-                                                         [1,0],
-                                                         [1,0],
-                                                         [0,1]],
-                                              sensor_right = 0.7,
-                                              p_move = 0.8, ),
-                      'expected_output': [[0.01105, 0.02464, 0.06799, 0.04472, 0.02465],
-                                          [0.00715, 0.01017, 0.08696, 0.07988, 0.00935],
-                                          [0.00739, 0.00894, 0.11272, 0.35350, 0.04065],
-                                          [0.00910, 0.00715, 0.01434, 0.04313, 0.03642]],
-                      'outputs_match_func': checkutil.arrays_approx_equal,
-                      'output_to_str_func': checkutil.format_2d_arr,
-                      'points_avail': 8}, )
+CODE_TEST_CASES = (
+    {
+        "function_name": "q4_localize",
+        "function_input": dict(
+            colors=[
+                ["R", "G", "G", "R", "R"],
+                ["R", "R", "G", "R", "R"],
+                ["R", "R", "G", "G", "R"],
+                ["R", "R", "R", "R", "R"],
+            ],
+            measurements=["G", "G", "G", "G", "G"],
+            motions=[[0, 0], [0, 1], [1, 0], [1, 0], [0, 1]],
+            sensor_right=0.7,
+            p_move=0.8,
+        ),
+        "expected_output": [
+            [0.01105, 0.02464, 0.06799, 0.04472, 0.02465],
+            [0.00715, 0.01017, 0.08696, 0.07988, 0.00935],
+            [0.00739, 0.00894, 0.11272, 0.35350, 0.04065],
+            [0.00910, 0.00715, 0.01434, 0.04313, 0.03642],
+        ],
+        "outputs_match_func": checkutil.arrays_approx_equal,
+        "output_to_str_func": checkutil.format_2d_arr,
+        "points_avail": 8,
+    },
+)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     checkutil.check(FILL_IN_TEST_CASES, CODE_TEST_CASES, locals())
