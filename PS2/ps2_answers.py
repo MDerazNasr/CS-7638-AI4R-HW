@@ -52,7 +52,7 @@ n = float("nan")
 # How does the variance of the new Gaussian compare to the individual Guassians?
 #
 possible_answers = ("smaller", "larger", "the same")
-update = ""
+update = "smaller"
 
 
 # QUESTION 2: NEW VARIANCE
@@ -60,7 +60,7 @@ update = ""
 # What is the value for Nu squared as a multiple of Sigma squared?
 # Replace n with your answer
 #
-variance = n
+variance = 0.5
 
 
 # QUESTION 3: HEAVYTAIL GAUSSIAN
@@ -68,7 +68,7 @@ variance = n
 # Is it possible to represent this function as a Gaussian?
 #
 possible_answers = ("YES", "NO")
-heavytail = ""
+heavytail = "NO"
 
 
 # QUESTION 4: HOW MANY DIMENSIONS
@@ -76,14 +76,14 @@ heavytail = ""
 # How many dimensions of the state vector for 2-dimensional space?
 # Replace n with your answer
 #
-dimensions = n
+dimensions = 4
 
 # QUESTION 5: STATE TRANSITION MATRIX
 #
 # What is the new F matrix for a Kalman filter in 2 dimensions?
 # Replace the n's with your answers
 #
-F = [[n, n, n, n], [n, n, n, n], [n, n, n, n], [n, n, n, n]]
+F = [[1, 0, 0.1, 0], [0, 1, 0, 0.1], [0, 0, 1, 0], [0, 0, 0, 1]]
 
 
 # QUESTION 6: PROGRAMMING EXERCISE
@@ -96,15 +96,15 @@ F = [[n, n, n, n], [n, n, n, n], [n, n, n, n], [n, n, n, n]]
 # Please do not delete or modify
 # any provided code. Good luck!
 #
-Matrices_P = [[n, n, n, n], [n, n, n, n], [n, n, n, n], [n, n, n, n]]
+Matrices_P = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1000, 0], [0, 0, 0, 1000]]
 
-Matrices_F = [[n, n, n, n], [n, n, n, n], [n, n, n, n], [n, n, n, n]]
+Matrices_F = [[1, 0, 0.1, 0], [0, 1, 0, 0.1], [0, 0, 1, 0], [0, 0, 0, 1]]
 
-Matrices_H = [[n, n, n, n], [n, n, n, n]]
+Matrices_H = [[1, 0, 0, 0], [0, 1, 0, 0]]
 
-Matrices_R = [[n, n], [n, n]]
+Matrices_R = [[0.1, 0], [0, 0.1]]
 
-Matrices_I = [[n, n, n, n], [n, n, n, n], [n, n, n, n], [n, n, n, n]]
+Matrices_I = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
 
 
 ######################################################################
