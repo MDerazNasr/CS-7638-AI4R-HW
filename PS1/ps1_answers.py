@@ -55,7 +55,7 @@ whoami = "mnasr34"
 #
 # What is P(~X) ?
 
-q1a_P_not_X = 0.0
+q1a_P_not_X = 0.8
 
 # Question 1, part B
 #
@@ -151,8 +151,8 @@ q3_P_L = 0.1
 # This means the 5th decimal place may influence the result of
 # the rounding of the 4th decimal place.
 
-q3_nonnormalized_P_F_given_B = 0.0
-q3_nonnormalized_P_not_F_given_B = 0.0
+q3_nonnormalized_P_F_given_B = 0.0009
+q3_nonnormalized_P_not_F_given_B = 0.0999
 
 # Next, normalize this distribution such that they form a valid
 # probability distribution (hint: in a valid distribution, all the
@@ -216,8 +216,29 @@ def q4_localize(colors, measurements, motions, sensor_right, p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
     p = [[pinit for _col in range(len(colors[0]))] for _row in range(len(colors))]
-
     # TODO: >>> Insert your code here <<<
+    for i in range(len(measurements)):
+        # MOVE
+        dy, dx = motions[i]
+        q = [[0.0 for _ in range(len(p[0]))] for _ in range(len(p))]
+        for y in range(len(p)):
+            for x in range(len(p[0])):
+                prev_y = (y - dy) % len(p)
+                prev_x = (x - dx) % len(p[0])
+                q[y][x] = p_move * p[prev_y][prev_x] + (1 - p_move) * p[y][x]
+        p = q
+
+        # SENSE
+        for y in range(len(p)):
+            for x in range(len(p[0])):
+                hit = measurements[i] == colors[y][x]
+                p[y][x] *= sensor_right if hit else (1 - sensor_right)
+
+        # NORMALIZE
+        total = sum(sum(row) for row in p)
+        for y in range(len(p)):
+            for x in range(len(p[0])):
+                p[y][x] /= total
 
     return p
 
