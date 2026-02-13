@@ -56,32 +56,32 @@ n = float("nan")
 # Is the grid function an admissable heuristic?
 # Replace n with 0 for false, 1 for true
 #
-q1_yes = n
-q1_no = n
+q1_yes = 1
+q1_no = 0
 
 # QUESTION 2: ADMISSIBLE HEURISTIC 2
 #
 # Is the grid function an admissable heuristic?
 # Replace n with 0 for false, 1 for true
 #
-q2_yes = n
-q2_no = n
+q2_yes = 0
+q2_no = 1
 
 # QUESTION 3: BAD HEURISTIC
 #
 # What may happen if h is not admissable?
 # Replace n with 0 for unchecked, 1 for checked
 #
-q3_Astar_finds_optimal_path_always = n
-q3_Astar_may_find_suboptimal_path = n
-q3_Astar_may_fail_to_find_path = n
-q3_None_of_the_above = n
+q3_Astar_finds_optimal_path_always = 0
+q3_Astar_may_find_suboptimal_path = 1
+q3_Astar_may_fail_to_find_path = 0
+q3_None_of_the_above = 0
 
 # QUESTION 4: DIAGONAL MOTION
 #
 # Replace the values n with the correct values from
 #
-q4_dynamic_programming = [[n, n, n], [n, "inf", n], [n, "inf", 0]]
+q4_dynamic_programming = [[3, 2, 2], [3, "inf", 1], [4, "inf", 0]]
 
 
 # QUESTION 5: STOCHASTIC MOTION
@@ -103,18 +103,50 @@ delta_name = ["^", "<", "v", ">"]  # Use these when creating your policy grid.
 
 def q5_stochastic_motion(grid, goal, cost_step, collision_cost, success_prob):
 
-    # Make sure to mark the goal with an asterisk character '*'.
-    # Your policy should also ignore any squares not connected to the goal.
-    # In the video Sebastian was initializing the value function with 1000 and using a collision
-    # cost of 100 to get the displayed result. In the quiz the value function will be initialized
-    # to what ever the collision cost is.
+    failure_prob = (1.0 - success_prob) / 2.0
 
-    # Be sure to fix or replace the following two initialization lines with the
-    # correct initialization of value and policy
-    value = [[n for col in range(len(grid[0]))] for row in range(len(grid))]
-    policy = [[" " for col in range(len(grid[0]))] for row in range(len(grid))]
+    rows = len(grid)
+    cols = len(grid[0])
 
-    # You will need to be sure to return the following
+    value = [[collision_cost for col in range(cols)] for row in range(rows)]
+    policy = [[" " for col in range(cols)] for row in range(rows)]
+
+    value[goal[0]][goal[1]] = 0
+    policy[goal[0]][goal[1]] = "*"
+
+    change = True
+    while change:
+        change = False
+        for row in range(rows):
+            for col in range(cols):
+                if row == goal[0] and col == goal[1]:
+                    continue
+                if grid[row][col] == 1:
+                    continue
+
+                for action in range(len(delta)):
+                    cost = cost_step
+
+                    for i in range(-1, 2):
+                        d = (action + i) % len(delta)
+                        r2 = row + delta[d][0]
+                        c2 = col + delta[d][1]
+
+                        if i == 0:
+                            p = success_prob
+                        else:
+                            p = failure_prob
+
+                        if 0 <= r2 < rows and 0 <= c2 < cols and grid[r2][c2] == 0:
+                            cost += p * value[r2][c2]
+                        else:
+                            cost += p * collision_cost
+
+                    if cost < value[row][col]:
+                        value[row][col] = cost
+                        policy[row][col] = delta_name[action]
+                        change = True
+
     return value, policy
 
 
